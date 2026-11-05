@@ -165,3 +165,6 @@
 	- B4 按业务入口查阅启动、首页、棋盘、教程、结算、进度和设置，具体类型链接见 [代码阅读与业务定位](Docs/UILibrary/PrefabCollection/index.html#code-guide)。这些入口是分析起点，不构成已经确认的运行调用链或迁移清单。
 
 	- B5 明确区分原作静态证据、运行核实、当前工程实现选择和待核实项。迁移行为按当前 ClientMain／System／Controller／Module／Panel 分层实现，配置使用正式 SO；不直接复制恢复 C# 到 Assets，不照搬原作单例或静态业务状态。UI 迁移仍须先核对原层级与资源依赖，并按 A2-B7 确认迁移范围。
+
+- A11 项目展示
+	- B1 [项目 README](README.md)：演示视频查看与下载入口。

@@ -978,3 +978,8 @@
 - 保留生成预算200在9阶失败、旧100奖励断言失败、旧副本缺文件编译失败、测试重载丢失savePath失败，分别修复配置／驱动后复验；Search异常和启动许可提示单列，最终无未解决项目检查错误。2000次预算属工程选择，不声明原APK逐种子／全部逻辑等级一致。全运行代码.NET编译0警告／0错误，隔离Unity编译、Play及Windows内容打包通过；应用／APK构建、安装、真机触摸／性能／扬声器及原APK动态对照未执行。
 - NextMigrationTODO追加A10并更新完成状态，MigrationAcceptance A27更新最终开发结果，既有玩法／主线TODO同步接续；用户验收未代勾。黄金挑战、真实外部服务及301关以后属于范围外。
 - 最终审计通过：25258份原保护文件未变，45份原作来源哈希未变；12371条既有Gameplay登记保留，新增15条default登记，13612份meta GUID唯一。全部交付资产与打包副本逐字节一致；AddressableAssetSettings仅同步Unity置零的序列化缓存Hash，注册关系未变。git diff --check通过。
+
+## 2026-11-05 添加 README 演示视频
+
+- 按用户要求新增根目录 README.md，加入演示视频查看和原文件下载链接；原始录屏保存为 media/demo.mp4，并在 AGENTS.md 添加 README 入口。
+- 视频 SHA-256 与源文件一致，检查 Markdown 链接路径及 git diff --check。本次仅提交展示文档和录屏；原有未提交改动保留，未执行 Unity 或构建验证。
