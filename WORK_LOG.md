@@ -979,6 +979,24 @@
 - NextMigrationTODO追加A10并更新完成状态，MigrationAcceptance A27更新最终开发结果，既有玩法／主线TODO同步接续；用户验收未代勾。黄金挑战、真实外部服务及301关以后属于范围外。
 - 最终审计通过：25258份原保护文件未变，45份原作来源哈希未变；12371条既有Gameplay登记保留，新增15条default登记，13612份meta GUID唯一。全部交付资产与打包副本逐字节一致；AddressableAssetSettings仅同步Unity置零的序列化缓存Hash，注册关系未变。git diff --check通过。
 
+## 2026-11-05 Android APK 打包
+
+- 按用户要求在独立构建副本制作 Android APK，正式入口为 Scene_Main；保留当前竖屏、ARM64、IL2CPP 配置。原工程玩法、资源、场景及 ProjectSettings 未修改；构建副本设置 Android 包名 com.DefaultCompany.Hamdoku2，版本 1.0（1），使用 Android Debug 测试签名。
+- 补装 Unity 6000.5.2f1 官方 Android 构建模块，配齐 JDK 17、NDK r27c、SDK Build Tools 36.0.0、Platform Tools 36.0.0、Cmdline Tools 16.0。模块 MD5、命令行工具 SHA-384 与官方元数据一致。首次构建因旧 SDK 命令行工具自动升级失败中止；补齐后原生编译遇到并发内存不足，改用 BEE_BUILD_THREADS=2 后构建成功。未通过关闭用户编辑器释放内存。
+- 最终应用构建成功：0 错误、3 条 TMP 大方法拆分编译警告；Android Addressables 内容打包通过，APK 内含 7 个资源 bundle。APK ZIP 全条目 CRC、v2 签名、16 KiB ZIP 对齐、包名／版本／ARM64／SDK 信息核验通过；最低 Android 8.0（API 26），目标 API 36。未执行安装、Play Mode、手机触摸及真机验证。
+- 包体位置：Builds/Android/Hamdoku2-1.0-arm64-20261105.apk，132,032,260 字节（约 125.9 MiB），SHA-256：C57D5DCCFEF8D1CEE15837CB67A3D30B11E0BF06049112F030CC73728CB5ECEB。构建日志、临时打包脚本及核验结果保存在 Logs/AndroidBuild_20261105；测试签名包用于安装试玩，尚未配置商店正式签名。
+
+## 2026-11-05 编辑器顶部清除存档按钮
+
+- 按用户要求参考 PandaSpin2/Assets/Src_Editor/Build/AndroidBuildToolbar.cs 的清除存档入口，在 Unity 顶部工具栏右侧添加“清除存档”。当前 Unity 6000.5.2f1 使用原生 MainToolbarElement 注册，默认右侧索引 0；不引入参考项目的打包、开始游戏或旧版反射工具栏代码。
+- 新增 Assets/Src_Editor/EM/SaveToolbarEM.cs 及 meta；SaveModule.GetPath 改为公开供工具复用原有路径与配置校验。读取正式 LogoConfig.startupGameConfig，删除当前 Editor persistentDataPath 下对应 JSON 和 .tmp；弹窗展示路径并确认，取消不删除，Play／切换 Play 时禁用，文件访问失败明确报告。
+- 本次正式编辑器自动导入并完成 Hamdoku 与 Hamdoku.Editor 编译，Logs/Editor.log 记录 Tundra build success（4.14 秒）。未实际点击确认删除，未清除玩家存档；按钮视觉位置、取消／确认交互及重启后进度重置尚未进行实际点击验收。未构建 APK。另启的独立 Mono 编译未完成，发现正式 Unity 已编译成功后终止，不计为验证通过。
+- 保留修改前已有 ProjectSettings/ProjectSettings.asset 与 WORK_LOG.md 内容；已有 ProjectSettings 行尾空白未调整。本批代码差异空白检查通过。
+## 2026-11-05 修复清除存档按钮不可见
+
+- 用户截图确认顶部工具栏未出现按钮，上次编译通过不代表显示验收。核查当前 UnityEditor.CoreModule 的 OverlayCanvas.FindSaveData：新 MainToolbarOverlay 的默认显示状态仅为 UnityOnlyMainToolbarPresetAttribute 元素开启，自定义元素默认隐藏；MainToolbarElement 的默认右侧停靠配置不会自动显示元素。
+- SaveToolbarEM 初始化延迟查找 MainToolbarWindow，通过公开 EditorWindow.TryGetOverlay 与 Overlay.displayed 显式显示本按钮，并刷新；新增 Hamdoku/显示清除存档按钮菜单作为重新显示入口。保留清除确认、Play 禁用及存档路径逻辑。
+- 使用 Unity 6000.5.2f1 自带 Roslyn 和本项目程序集引用独立编译 SaveToolbarEM 通过，无错误；本次代码差异空白检查通过。截至记录时，打开的 Unity 尚未重新导入本次修改，实际按钮显示与点击仍待切回编辑器触发刷新后核验，不宣称视觉验证通过；未执行删除存档。
 ## 2026-11-05 添加 README 演示视频
 
 - 按用户要求新增根目录 README.md，加入演示视频查看和原文件下载链接；原始录屏保存为 media/demo.mp4，并在 AGENTS.md 添加 README 入口。

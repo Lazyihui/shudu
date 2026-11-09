@@ -227,7 +227,7 @@ namespace Hamdoku {
             }
         }
 
-        string GetPath(GameConfigSO config, string directory) {
+        public string GetPath(GameConfigSO config, string directory) {
             if (config.saveVersion <= 0 || string.IsNullOrWhiteSpace(config.saveFileName) ||
                 Path.GetFileName(config.saveFileName) != config.saveFileName) {
                 throw new InvalidDataException("Invalid save configuration.");
